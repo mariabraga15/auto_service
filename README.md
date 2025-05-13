@@ -2,7 +2,7 @@
 
 ```bash
 # 1. Clonare repository
-mkdir project
+
 git clone https://github.com/mariabraga15/auto_service.git
 cd auto_service
 
