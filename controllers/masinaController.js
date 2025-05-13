@@ -2,12 +2,61 @@ const { Masina, User } = require('../models/index');
 
 exports.addMasina = async (req, res) => {
   try {
-    const masina = await Masina.create({ ...req.body, ClientId: req.body.clientId });
+    const {
+      marca,
+      model,
+      nrInmatriculare,
+      serieSasiu,
+      anFabricatie,
+      motorizare,
+      capacitateMotor,
+      caiPutere,
+      clientId
+    } = req.body;
+
+   
+    if (!marca || !model || !nrInmatriculare || !serieSasiu || !clientId) {
+      return res.status(400).json({ error: 'Marca, model, numar inmatriculare, serie sasiu si clientId sunt obligatorii!' });
+    }
+
+    if (!/^[A-Z0-9\-]+$/i.test(nrInmatriculare)) {
+      return res.status(400).json({ error: 'Numar de înmatriculare invalid' });
+    }
+
+    if (anFabricatie && (anFabricatie < 1900 || anFabricatie > new Date().getFullYear())) {
+      return res.status(400).json({ error: 'An de fabricație invalid.' });
+    }
+
+    if (motorizare && !['diesel', 'benzina', 'hibrid', 'electric'].includes(motorizare)) {
+      return res.status(400).json({ error: 'Tip motorizare invalid.' });
+    }
+
+    if (capacitateMotor && capacitateMotor <= 0) {
+      return res.status(400).json({ error: 'Capacitatea motorului trebuie să fie pozitivă.' });
+    }
+
+    if (caiPutere && caiPutere <= 0) {
+      return res.status(400).json({ error: 'Caii putere trebuie să fie pozitivi.' });
+    }
+
+    const masina = await Masina.create({
+      marca,
+      model,
+      nrInmatriculare,
+      serieSasiu,
+      anFabricatie,
+      motorizare,
+      capacitateMotor,
+      caiPutere,
+      userId: clientId 
+    });
+
     res.status(201).json(masina);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 exports.getMasini = async (req, res) => {
   const masini = await Masina.findAll({ include: User });
@@ -42,7 +91,7 @@ exports.updateMasina = async (req, res) => {
     const masina = await Masina.findByPk(id);
     res.json({ message: 'Masina actualizata cu succes', masina });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 

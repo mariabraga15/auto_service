@@ -1,13 +1,39 @@
-const {User,Masina} = require('../models/index')
+const {User,Masina,Istoric,Programare} = require('../models/index')
 
 exports.createClient = async (req, res) => {
-    try {
-      const client = await User.create(req.body);
-      res.status(201).json(client);
-    } catch (err) {
-      res.status(400).json({ error: err.message });
+  try {
+    const { nume, prenume, telefon, email, parola, rol } = req.body;
+
+    
+    if (!nume || !prenume || !telefon || !email || !parola || !rol) {
+      return res.status(400).json({ error: 'Toate campurile sunt obligatorii' });
     }
-  };
+
+    if (!/^[0-9]{10}$/.test(telefon)) {
+      return res.status(400).json({ error: 'Telefonul trebuie să aibă 10 cifre' });
+    }
+
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      return res.status(400).json({ error: 'Email invalid' });
+    }
+
+    if (parola.length < 8) {
+      return res.status(400).json({ error: 'Parola trebuie să aibă cel puțin 8 caractere' });
+    }
+
+    if (!['admin', 'client'].includes(rol)) {
+      return res.status(400).json({ error: 'Rolul trebuie să fie "admin" sau "client"' });
+    }
+
+    
+    const client = await User.create(req.body);
+    res.status(201).json(client);
+    
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
   
   exports.getAllClients = async (req, res) => {
   try {
@@ -54,3 +80,5 @@ exports.createClient = async (req, res) => {
     res.json({ message: 'Client deleted' });
   };
   
+
+

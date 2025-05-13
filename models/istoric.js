@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) =>
   sequelize.define('Istoric', {
+      
     problemeVizuale: {
       type: DataTypes.TEXT
     },
@@ -14,5 +15,6 @@ module.exports = (sequelize) =>
   }, {
     indexes: [
       { fields: ['durataReparatie'] }
-    ]
+    ],
+    
   });

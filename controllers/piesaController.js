@@ -15,7 +15,7 @@ exports.addPiesa = async (req, res) => {
     const piesa = await Piesa.create({ nume, cod, pret });
     res.status(201).json(piesa);
   } catch (err) {
-    res.status(400).send('Eroare la adaugarea piesei: ' + err.message);
+    res.status(500).send('Eroare la adaugarea piesei: ' + err.message);
   }
 };
 
@@ -51,7 +51,7 @@ exports.updatePiesa = async (req, res) => {
     const piesa = await Piesa.findByPk(id);
     res.send(piesa);
   } catch (err) {
-    res.status(400).send('Eroare la actualizare: ' + err.message);
+    res.status(500).send('Eroare la actualizare: ' + err.message);
   }
 };
 
@@ -61,7 +61,7 @@ exports.deletePiesa = async (req, res) => {
     const deleted = await Piesa.destroy({ where: { id } });
     if (deleted === 0) return res.status(404).send('Piesa nu a fost gasita.');
 
-    res.send('Piesa stearsa cu succes.');
+    res.send('Piesa stearsa cu succes');
   } catch (err) {
     res.status(500).send('Eroare la stergere: ' + err.message);
   }

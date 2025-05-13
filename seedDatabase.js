@@ -28,7 +28,7 @@ const seed = async () => {
     ]);
 
     const prog1 = await Programare.create({
-      MasinaId: masina1.id,
+      masinaId: masina1.id,
       data: '2025-05-10',
       ora: '09:30',
       modalitateContact: 'telefon',
@@ -36,7 +36,7 @@ const seed = async () => {
     });
 
     const prog2 = await Programare.create({
-      MasinaId: masina2.id,
+      masinaId: masina2.id,
       data: '2025-05-11',
       ora: '10:30',
       modalitateContact: 'email',
@@ -44,7 +44,7 @@ const seed = async () => {
     });
 
     const prog3 = await Programare.create({
-      MasinaId: masina3.id,
+      masinaId: masina3.id,
       data: '2025-05-12',
       ora: '11:00',
       modalitateContact: 'telefon',
@@ -52,7 +52,7 @@ const seed = async () => {
     });
 
     const ist1 = await Istoric.create({
-      ProgramareId: prog1.id,
+      programareId: prog1.id,
       problemeVizuale: 'zgarieturi usoare',
       interventii: 'schimb ulei, filtru ulei si aer',
       durataReparatie: 60,
@@ -60,7 +60,7 @@ const seed = async () => {
     await ist1.setPiese([p1, p2]);
 
     const ist2 = await Istoric.create({
-      ProgramareId: prog2.id,
+      programareId: prog2.id,
       problemeVizuale: 'placute uzate',
       interventii: 'inlocuire placute frana',
       durataReparatie: 50,
@@ -68,7 +68,7 @@ const seed = async () => {
     await ist2.setPiese([p4]);
 
     const ist3 = await Istoric.create({
-      ProgramareId: prog3.id,
+      programareId: prog3.id,
       problemeVizuale: 'motor tremura la ralanti',
       interventii: 'inlocuire bujii',
       durataReparatie: 70,

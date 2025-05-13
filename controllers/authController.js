@@ -7,7 +7,7 @@ const SECRET = process.env.JWT_SECRET;
 
 exports.signUp = async (req, res) => {
   try {
-    const { nume, prenume, telefon, email, parola } = req.body;
+    const { nume, prenume, telefon, email, parola, rol } = req.body;
 
     if (!nume || !prenume || !telefon || !email || !parola) {
       return res.status(400).send('Toate campurile sunt obligatorii');
@@ -37,7 +37,7 @@ exports.signUp = async (req, res) => {
       telefon,
       email,
       parola: hashedPassword,
-      rol: 'client'
+      rol
     });
 
     res.status(201).json({ message: 'Cont creat cu succes', userId: user.id });
@@ -52,7 +52,7 @@ exports.logIn = async (req, res) => {
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(401).send('Email inexistent');
+      return res.status(401).send('Nu exista cont cu aceasta adresa de email');
     }
 
     const isMatch = await bcrypt.compare(parola, user.parola);
