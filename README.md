@@ -1,4 +1,4 @@
-# Instrucțiuni de rulare a aplicației Auto Service
+# Instrucțiuni de rulare a aplicatiei
 
 ```bash
 # 1. Clonare repository
