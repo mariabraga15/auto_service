@@ -6,7 +6,7 @@ mkdir project
 git clone https://github.com/mariabraga15/auto_service.git
 cd auto_service
 
-# 2. Instalează dependințele
+# 2. Instalare dependencies
 npm install
 
 # 3. Populare baza de date
