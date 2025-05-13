@@ -9,7 +9,7 @@ cd auto_service
 # 2. Instalează dependințele
 npm install
 
-# 3. Configurează baza de date
+# 3. Populare baza de date
 npm run seed:orm
 
 # 4. Pornire server
